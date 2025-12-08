@@ -2,8 +2,10 @@ import React from 'react';
 
 const Home = () => {
     return (
-        <div>
-            <h1>This is Home!</h1>
+        <div className=''>
+            <h1>This is Home!
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime alias amet atque officia hic aliquam, porro mollitia soluta. Vero ipsa natus architecto quas, praesentium itaque beatae accusamus minima maiores quidem?
+            </h1>
         </div>
     );
 };
