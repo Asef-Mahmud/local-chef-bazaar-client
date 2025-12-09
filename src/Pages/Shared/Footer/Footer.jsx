@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 const Footer = () => {
     return (
         <div>
-            <footer className="bg-primary text-white p-5 text-center border-t-4 border-t-primary py-10 font-bold" data-aos="fade-up">
+            <footer className="bg-primary text-secondary p-5 text-center border-t-4 border-t-primary py-10 font-bold" data-aos="fade-up">
 
                 <div>
                     <img className='mx-auto mb-4 w-10 md:w-15 object-cover rounded-full border-2 border-yellow-950 transition-all duration-300 hover:scale-110 hover:text-primary' src={logo} alt="Logo of the Company" />
@@ -46,10 +46,6 @@ const Footer = () => {
                         </h3>
                     </div>
                 </div>
-
-
-
-
 
             </footer>
         </div>

@@ -13,7 +13,7 @@ const Navbar = () => {
 
 
     return (
-        <div className="navbar bg-base-100 shadow-sm px-5 md:px-10 lg:px-12">
+        <div className="navbar bg-base-100 shadow-sm px-3 md:px-10 lg:px-12">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -27,7 +27,7 @@ const Navbar = () => {
                         }
                     </ul>
                 </div>
-                <Link className="btn btn-ghost text-xl font-extrabold"><img className='w-7 md:w-10 object-cover rounded-full border border-primary' src={logo} alt="Logo of the Company" />Local Chef Bazaar</Link>
+                <Link to='/' className="btn btn-ghost text-[15px] md:text-xl font-extrabold -ms-6 md:ms-0"><img className='w-7 md:w-10 object-cover rounded-full border border-primary' src={logo} alt="Logo of the Company" />Local Chef Bazaar</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 gap-5">
@@ -37,8 +37,8 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end gap-1 md:gap-3 lg:gap-4">
-                <a className="btn button w-16 md:w-20 lg:w-27 text-xs md:text-sm md:font-bold bg-primary rounded-xl text-base-100">Login</a>
-                <a className="btn button w-16 md:w-20 lg:w-27 text-xs md:text-sm md:font-bold bg-primary rounded-xl text-base-100">Register</a>
+                <a className="btn button w-14 md:w-20 lg:w-27 text-xs md:text-sm md:font-bold bg-primary rounded-xl text-base-100">Login</a>
+                <a className="btn button w-14 md:w-20 lg:w-27 text-xs md:text-sm md:font-bold bg-primary rounded-xl text-base-100">Register</a>
             </div>
         </div>
     );

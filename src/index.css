@@ -36,7 +36,6 @@
     --color-warning: #FFB300;
     --color-error: #E53935;
 
-
 }
 
 body {
@@ -59,7 +58,7 @@ body {
 
 .nav-item.active {
     color: hsl(var(--p));
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .nav-link {
