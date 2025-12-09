@@ -27,7 +27,7 @@ const Navbar = () => {
                         }
                     </ul>
                 </div>
-                <Link to='/' className="btn btn-ghost text-[15px] md:text-xl font-extrabold -ms-6 md:ms-0"><img className='w-7 md:w-10 object-cover rounded-full border border-primary' src={logo} alt="Logo of the Company" />Local Chef Bazaar</Link>
+                <Link to='/' className="btn btn-ghost text-[15px] md:text-xl font-extrabold -ms-6 md:ms-0"><img className='w-7 md:w-10 object-cover hover:animate-bounce rounded-full border border-primary' src={logo} alt="Logo of the Company" />Local Chef Bazaar</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 gap-5">
