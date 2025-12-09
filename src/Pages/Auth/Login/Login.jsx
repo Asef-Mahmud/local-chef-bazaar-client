@@ -2,14 +2,30 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
 import imgbg from '../../../assets/cook_bg.jpg'
+import useAuth from '../../../hooks/useAuth';
+import { chefToast } from '../../../utils/chefToast';
 
 
 const Login = () => {
+
+    const {signInUser} = useAuth()
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
 
     const handleLogin = (data) => {
         console.log('after login', data)
+
+        // signIn USer
+        signInUser(data.email, data.password)
+            .then(result => {
+                console.log(result)
+                chefToast.success('Signin Successful!')
+
+            })
+            .catch(error => {
+                console.log(error)
+                chefToast.error(error.message)
+            })
 
         reset()
     }

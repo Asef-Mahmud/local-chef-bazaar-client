@@ -1,13 +1,16 @@
 import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import imgbg from '../../../assets/cook_bg.jpg'
+import useAuth from '../../../hooks/useAuth';
+import { chefToast } from '../../../utils/chefToast';
 
 const Register = () => {
 
-
     const { register, control, handleSubmit, reset, formState: { errors } } = useForm()
-
+    const { registerUser } = useAuth()
+    
+    const navigate = useNavigate()
 
     // Check password
     const password = useWatch({
@@ -19,8 +22,24 @@ const Register = () => {
     const handleRegister = (data) => {
         console.log('after registration', data)
 
+        // Register User
+        registerUser(data.email, data.password)
+            .then(result => {
+                console.log(result)
+                chefToast.success('Registration Successful!')
+                navigate('/')
+            })
+            .catch(error => {
+                console.log(error)
+                chefToast.error(error.message)
+            })
+
+
+        // Reset the form
         reset()
     }
+
+
 
     return (
         <div
@@ -46,7 +65,7 @@ const Register = () => {
                         {errors.email?.type === 'required' && <p className='text-warning'>Email is required.</p>}
 
 
-                         {/* Address Field */}
+                        {/* Address Field */}
                         <label className="label text-secondary">Address</label>
                         <input type="text" {...register('address', { required: true })} className="input" placeholder="Your Address" />
                         {errors.name?.type === 'required' && <p className='text-warning'>Address is required.</p>}
@@ -62,10 +81,11 @@ const Register = () => {
 
                         {/* Confirm Password */}
                         <label className="label text-secondary">Confirm Password</label>
-                        <input type="password" {...register("confirmPassword", {required: "Confirm Password is required",
-                                    validate: (value) =>
-                                    value === password || "Passwords do not match",
-                            })}
+                        <input type="password" {...register("confirmPassword", {
+                            required: "Confirm Password is required",
+                            validate: (value) =>
+                                value === password || "Passwords do not match",
+                        })}
                             className="input"
                             placeholder="Confirm Password"
                         />
