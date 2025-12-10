@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import imgbg from '../../../assets/cook_bg.jpg'
 import useAuth from '../../../hooks/useAuth';
 import { chefToast } from '../../../utils/chefToast';
@@ -8,19 +8,28 @@ import { chefToast } from '../../../utils/chefToast';
 
 const Login = () => {
 
-    const {signInUser} = useAuth()
+    const {signInUser, setUser} = useAuth()
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
 
+    // Redirects
+    const navigate = useNavigate()
+    const location = useLocation()
+
+
+
+    // HandleLogin
     const handleLogin = (data) => {
         console.log('after login', data)
 
         // signIn USer
         signInUser(data.email, data.password)
             .then(result => {
-                console.log(result)
+                console.log(result.user)
+                const user = result.user
+                setUser(user)
                 chefToast.success('Signin Successful!')
-
+                navigate(`${location.state ? location.state : '/'}`)
             })
             .catch(error => {
                 console.log(error)
