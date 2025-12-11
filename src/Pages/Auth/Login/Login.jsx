@@ -4,11 +4,12 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import imgbg from '../../../assets/cook_bg.jpg'
 import useAuth from '../../../hooks/useAuth';
 import { chefToast } from '../../../utils/chefToast';
+import Loader from '../../../Loader/Loader';
 
 
 const Login = () => {
 
-    const {signInUser, setUser} = useAuth()
+    const { signInUser, setUser, loading } = useAuth()
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
 
@@ -37,6 +38,10 @@ const Login = () => {
             })
 
         reset()
+    }
+
+    if (loading) {
+        return <Loader></Loader>
     }
 
 

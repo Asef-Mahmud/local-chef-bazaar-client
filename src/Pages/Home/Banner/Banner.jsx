@@ -69,11 +69,11 @@ const Banner = () => {
                             transition={{ duration: 1.5 }}
                             className="absolute inset-0 flex flex-col items-center justify-center text-center px-5"
                         >
-                            <h1 className="text-3xl md:text-6xl lg:text-5xl font-bold text-white">
+                            <h1 className="text-3xl md:text-6xl lg:text-5xl font-extrabold text-accent">
                                 {slide.title}
                             </h1>
 
-                            <p className="mt-5 mx-6 text-white max-w-xl">
+                            <p className="mt-5 mx-6 text-gray-300 font-extrabold max-w-xl">
                                 {slide.subtitle}
                             </p>
 

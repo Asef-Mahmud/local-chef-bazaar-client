@@ -5,6 +5,8 @@ import AuthLayout from "../layouts/AuthLayout";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/Register/Register";
 import Meals from "../Pages/Meals/Meals";
+import PrivateRoute from "./PrivateRoute";
+import MealDetails from "../Pages/MealDetails/MealDetails";
 
 
 
@@ -20,6 +22,12 @@ const router = createBrowserRouter([
         {
             path: "/meals",
             Component: Meals
+        },
+        {
+          path: "/meal-details/:id",
+          element: <PrivateRoute>
+            <MealDetails></MealDetails>
+          </PrivateRoute>
         }
     ]
   },

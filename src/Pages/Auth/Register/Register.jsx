@@ -5,6 +5,7 @@ import imgbg from '../../../assets/cook_bg.jpg'
 import useAuth from '../../../hooks/useAuth';
 import { chefToast } from '../../../utils/chefToast';
 import axios from 'axios';
+import Loader from '../../../Loader/Loader';
 
 const Register = () => {
 
@@ -12,7 +13,7 @@ const Register = () => {
     const { register, control, handleSubmit, reset, formState: { errors } } = useForm()
 
     // userAuth
-    const { registerUser, setUser, updateUser, } = useAuth()
+    const { registerUser, setUser, updateUser, loading} = useAuth()
 
     // Redirects
     const navigate = useNavigate()
@@ -82,7 +83,11 @@ const Register = () => {
                 reset()
             }
 
+            // Loader
 
+            if(loading){
+                return <Loader></Loader>
+            }
 
     return (
             <div

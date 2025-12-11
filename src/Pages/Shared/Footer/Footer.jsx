@@ -15,7 +15,7 @@ const Footer = () => {
                     
                     <p className='mb-5'>© 2025 Local Chef Bazaar. All rights reserved.</p>
                     
-                    <hr className='border hidden md:block mx-10 md:mx-28 lg:mx-64 text-center mb-7 border-white'/>
+                    <hr className='border hidden md:block mx-10 md:mx-28 lg:mx-64 text-center mb-7 border-bg-100'/>
                     <ul className="flex justify-center gap-4 mt-2">
                         <li><a href="https://x.com/" target='_blank'><FaXTwitter className='w-6 h-6 opacity-75 hover:opacity-100 hover:scale-125 transition-all duration-300' /></a></li>
                         <li><a href="https://www.youtube.com/" target='_blank'><FaYoutube className='w-6 h-6 opacity-75 hover:opacity-100 hover:scale-125 transition-all duration-300' /></a></li>

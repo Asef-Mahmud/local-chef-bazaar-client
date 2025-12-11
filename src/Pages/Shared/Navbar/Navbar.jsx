@@ -88,7 +88,7 @@ const Navbar = () => {
                                 </div>
 
                                 {/* Logout Button */}
-                                <button onClick={handleSignOut} className="btn button w-14 md:w-20 lg:w-27 text-xs md:text-sm md:font-bold bg-primary rounded-xl text-base-100">Logout</button>
+                                <button onClick={handleSignOut} className="btn w-14 md:w-20 lg:w-27 text-xs md:text-sm md:font-bold bg-accent text-base-100 border-accent rounded-xl">Logout</button>
 
                                 <Tooltip id="userTip" place="bottom" effect="solid" style={{ color: '#F5F5F5', fontWeight: 'bold', backgroundColor: '#1A1A1A' }} />
                             </>
