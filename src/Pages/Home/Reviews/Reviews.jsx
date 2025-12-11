@@ -1,5 +1,5 @@
 import React from 'react';
-import { EffectCoverflow, Navigation } from 'swiper/modules';
+import { Autoplay, EffectCoverflow, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import "swiper/css";
 import "swiper/css/navigation";
@@ -61,13 +61,13 @@ const reviews = [
 const Reviews = () => {
 
     return (
-        <div className="mt-5 md:my-15 bg-white py-20">
+        <div className=" bg-secondary py-25">
             <div className="px-5 pt-5 md:pt-0 text-center mb-10">
-                <h1 className="text-4xl font-bold text-primary mb-5">
+                <h1 className="text-2xl md:text-4xl font-bold text-primary mb-5">
                     What Our Customers Are Saying
                 </h1>
                 <p className="text-gray-600 max-w-2xl mx-auto">
-                    "See why food lovers are raving about LocalChefBazaar. From fresh flavors to heartfelt service, our customers share their experiences enjoying home-cooked meals made with passion."
+                    See why food lovers are raving about LocalChefBazaar. From fresh flavors to heartfelt service, our customers share their experiences enjoying home-cooked meals made with passion.
                 </p>
             </div>
 
@@ -90,7 +90,10 @@ const Reviews = () => {
                     768: { slidesPerView: 2 },
                     1024: { slidesPerView: 3 },
                 }}
-                modules={[Navigation, EffectCoverflow]}
+                modules={[Navigation, EffectCoverflow, Autoplay]}
+                autoplay={{
+                    delay: 3000,
+                }}
                 className="mySwiper w-full md:max-w-6xl mx-auto py-10"
             >
                 {reviews.map((review) => (
@@ -98,7 +101,7 @@ const Reviews = () => {
                         key={review.id}
                         className="flex justify-center w-full"
                     >
-                        <div className="bg-gray-50 rounded-2xl p-6 flex flex-col items-center text-center shadow-lg hover:shadow-xl transition duration-300 max-w-md">
+                        <div className="bg-base-100 rounded-2xl p-6 flex flex-col items-center text-center shadow-lg hover:shadow-xl transition duration-300 max-w-md flex-1 justify-between h-[350px] md:h-auto">
                             <img
                                 src={review.image}
                                 alt={review.name}
@@ -106,7 +109,7 @@ const Reviews = () => {
                             />
                             <h3 className="font-semibold text-gray-900">{review.name}</h3>
                             <p className="text-gray-600 text-sm mt-2">{review.comment}</p>
-                            <p className="text-gray-400 text-sm mt-2">{review.date}</p>
+                            <p className="text-accent font-semibold text-sm mt-2">{review.date}</p>
                         </div>
                     </SwiperSlide>
                 ))}

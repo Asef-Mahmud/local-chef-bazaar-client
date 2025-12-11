@@ -4,6 +4,7 @@ import Home from "../Pages/Home/Home/Home";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/Register/Register";
+import Meals from "../Pages/Meals/Meals";
 
 
 
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
         {
             index: true,
             Component: Home
+        },
+        {
+            path: "/meals",
+            Component: Meals
         }
     ]
   },

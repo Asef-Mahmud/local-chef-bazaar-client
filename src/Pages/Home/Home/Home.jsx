@@ -8,25 +8,28 @@ import Reviews from '../Reviews/Reviews';
 
 const Home = () => {
     return (
-        <div className=''>
+        <div className='bg-secondary'>
             {/* Banner */}
             <section className='max-w-[1600px] mx-auto'>
                 <Banner></Banner>
             </section>
 
-            {/* Meals */}
-            <section className='max-w-[1600px] mx-auto bg-primary rounded-b-4xl'>
-                <DailyMeals></DailyMeals>
-            </section>
 
-            <section className='max-w-[1600px] mx-auto py-20 bg-secondary'>
+            <section className='max-w-[1600px] mx-auto py-10 bg-secondary px-5 md:px-10'>
                 <HowItWorks></HowItWorks>
             </section>
 
-            <section className='max-w-[1600px] mx-auto'>
+            {/* Meals */}
+            <section className='max-w-[1600px] mx-auto bg-primary py-10'>
+                <DailyMeals></DailyMeals>
+            </section>
+
+
+            {/* Review Section */}
+            <section className='max-w-[1600px] bg-secondary mx-auto px-5 md:px-10'>
                 <Reviews></Reviews>
             </section>
-            
+
         </div>
     );
 };

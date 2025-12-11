@@ -30,7 +30,7 @@ const steps = [
 const HowItWorks = () => {
 
     return (
-        <div>
+        <div className='py-10 md:py-20'>
             <div className="text-center mb-12">
                 <h2 className="text-2xl md:text-4xl font-extrabold text-gray-900">
                     How It Works
@@ -44,7 +44,7 @@ const HowItWorks = () => {
                 {steps.map((step) => (
                     <div
                         key={step.id}
-                        className="bg-white hover:bg-accent/20 border border-accent rounded-xl shadow-lg p-8 flex flex-col items-center text-center hover:shadow-xl transition duration-300"
+                        className="bg-base-100 hover:bg-accent/20 border border-accent rounded-xl shadow-lg p-8 flex flex-col items-center text-center hover:shadow-xl transition duration-300"
                     >
                         <div className="mb-5">{step.icon}</div>
                         <h3 className="text-xl font-semibold mb-2 text-gray-900">{step.title}</h3>

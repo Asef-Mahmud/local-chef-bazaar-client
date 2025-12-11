@@ -101,3 +101,13 @@ body {
 .mySwiper .swiper-pagination-bullet-active {
   background-color: white;
 }
+
+
+.mySwiper .swiper-button-next,
+.mySwiper .swiper-button-prev {
+  color: #C9A86A;
+  padding: 7px;
+  border-radius: 999px;
+  backdrop-filter: blur(20px);
+  
+}
