@@ -96,3 +96,8 @@ body {
   border-color: #1A1A1A;
   transform: translateY(-1px);
 }
+
+
+.mySwiper .swiper-pagination-bullet-active {
+  background-color: white;
+}

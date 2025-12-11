@@ -1,13 +1,27 @@
 import React from 'react';
 import Loader from '../../../Loader/Loader';
+import Banner from '../Banner/Banner';
+import DailyMeals from '../DailyMeals/DailyMeals';
+import HowItWorks from '../HowItWorks/HowItWorks';
+
 
 const Home = () => {
     return (
         <div className=''>
-            <h1>This is Home!
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime alias amet atque officia hic aliquam, porro mollitia soluta. Vero ipsa natus architecto quas, praesentium itaque beatae accusamus minima maiores quidem?
-                <Loader></Loader>
-            </h1>
+            {/* Banner */}
+            <section>
+                <Banner></Banner>
+            </section>
+
+            {/* Meals */}
+            <section className='bg-primary rounded-b-4xl'>
+                <DailyMeals></DailyMeals>
+            </section>
+
+            <section className='py-20 bg-secondary'>
+                <HowItWorks></HowItWorks>
+            </section>
+            
         </div>
     );
 };
