@@ -1,26 +1,88 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import Loader from '../../Loader/Loader';
+import { useForm } from 'react-hook-form';
+import { chefToast } from '../../utils/chefToast';
+import useAuth from '../../hooks/useAuth';
+import useAxios from '../../hooks/useAxios';
 
 const MealDetails = () => {
 
-    const { id } = useParams()
+    const { id: mealId } = useParams()
     const axiosSecure = useAxiosSecure()
+    const { user } = useAuth()
+    const axiosInstance = useAxios()
 
+
+    const { newComment, setNewComment } = useState('')
+
+    // Form control
+    const { register, formState: { errors }, reset, handleSubmit } = useForm()
+
+
+    //Fetching meals
     const { data: meal = [], isLoading } = useQuery({
-        queryKey: ['meal', id],
+        queryKey: ['meal', mealId],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/meal-details/${id}`)
+            const res = await axiosSecure.get(`/meal-details/${mealId}`)
             return res.data
 
         }
     })
 
+
+    // Fetching reviews
+
+    const { data: reviews = [], refetch } = useQuery({
+        queryKey: ['reviews', mealId],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/reviews/${mealId}`)
+            console.log(res.data)
+            return res.data
+        }
+    })
+
+
+
     if (isLoading) {
         return <Loader></Loader>
     }
+
+
+    const handleReviewSubmit = (data) => {
+
+        console.log(data)
+        const reviewData = {
+            mealId: mealId,
+            reviewerName: user?.displayName,
+            reviewerImage: user?.photoURL,
+            rating: data.rating,
+            comment: data.comment,
+        };
+
+        axiosInstance.post('/review', reviewData)
+            .then(res => {
+                if (res.data.insertedId) {
+                    chefToast.success('Review submitted successfully!')
+                    refetch()
+                    reset();
+
+                }
+            })
+            .catch(error => {
+                chefToast.error("Failed to post comment");
+            });
+    }
+
+
+
+
+
+
+
+
 
 
     return (
@@ -49,11 +111,64 @@ const MealDetails = () => {
                         <p className="text-lg font-medium"><span className='font-bold'>Chef Experience: </span> {meal.chefExperience}</p>
                     </div>
 
-                    <button className="btn btn-primary text-white bg-accent border-accent mt-6 w-full md:w-auto rounded-xl">Order Now</button>
+                    <Link to={`/order/${meal._id}`}><button className="btn btn-primary text-white bg-accent border-accent mt-6 w-full md:w-auto rounded-xl">Order Now</button></Link>
                 </div>
             </div>
 
 
+
+
+            {/* Reviews Section */}
+            <div className="mt-10">
+                <h2 className="text-2xl font-bold text-primary mb-4">Customer Reviews</h2>
+                <div className="space-y-4">
+                    {reviews?.map(review => (
+                        <div key={review._id} className="flex items-start gap-4 bg-base-200 p-4 rounded-lg shadow-sm">
+                            <img src={review.reviewerImage} alt={review.reviewerName} className="w-12 h-12 rounded-full object-cover" />
+                            <div className="flex-1">
+                                <p className="font-semibold">{review.reviewerName} <span className='text-yellow-500'>{"★ ".repeat(review.rating)}</span></p>
+                                <p className="text-gray-700">{review.comment}</p>
+                                <p className="text-xs text-gray-500 mt-1">{new Date(review.timestamp).toLocaleString()}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+
+            <div className="mt-8 bg-base-100 p-6 rounded-xl shadow-md max-w-3xl mx-auto">
+                <h3 className="text-xl font-bold text-primary mb-4">Leave a Review</h3>
+
+                <form onSubmit={handleSubmit(handleReviewSubmit)} className="space-y-4">
+
+                    {/* Rating */}
+                    <div>
+                        <label className="block font-medium mb-1">Rating</label>
+                        <select {...register('rating', { required: true })} className="input w-full">
+                            <option value="">Select rating</option>
+                            <option value={1}>1 ★</option>
+                            <option value={2}>2 ★ ★</option>
+                            <option value={3}>3 ★ ★ ★</option>
+                            <option value={4}>4 ★ ★ ★ ★</option>
+                            <option value={5}>5 ★ ★ ★ ★ ★</option>
+                        </select>
+                        {errors.rating && <p className="text-red-500 text-sm mt-1">Rating is required</p>}
+                    </div>
+
+                    {/* Comment */}
+                    <div>
+                        <label className="block font-medium mb-1">Comment</label>
+                        <textarea
+                            {...register('comment', { required: true })}
+                            className="textarea w-full"
+                            placeholder="Share your thoughts about this meal..."
+                        ></textarea>
+                        {errors.comment && <p className="text-red-500 text-sm mt-1">Comment is required</p>}
+                    </div>
+
+                    <button type="submit" className="btn button w-full rounded-xl">Submit Review</button>
+                </form>
+            </div>
         </div>
     );
 };

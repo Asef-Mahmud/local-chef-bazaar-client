@@ -7,6 +7,7 @@ import Register from "../Pages/Auth/Register/Register";
 import Meals from "../Pages/Meals/Meals";
 import PrivateRoute from "./PrivateRoute";
 import MealDetails from "../Pages/MealDetails/MealDetails";
+import Order from "../Pages/Order/Order";
 
 
 
@@ -27,6 +28,12 @@ const router = createBrowserRouter([
           path: "/meal-details/:id",
           element: <PrivateRoute>
             <MealDetails></MealDetails>
+          </PrivateRoute>
+        },
+        {
+          path: "/order/:id",
+          element: <PrivateRoute>
+            <Order></Order>
           </PrivateRoute>
         }
     ]
