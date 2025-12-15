@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { Link, useParams } from 'react-router';
 import Loader from '../../Loader/Loader';
@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { chefToast } from '../../utils/chefToast';
 import useAuth from '../../hooks/useAuth';
 import useAxios from '../../hooks/useAxios';
+import { FaRegStar, FaStar } from 'react-icons/fa6';
 
 const MealDetails = () => {
 
@@ -16,7 +17,7 @@ const MealDetails = () => {
     const axiosInstance = useAxios()
 
 
-    const { newComment, setNewComment } = useState('')
+    const [favorite, setFavorite] = useState(false)
 
     // Form control
     const { register, formState: { errors }, reset, handleSubmit } = useForm()
@@ -32,6 +33,15 @@ const MealDetails = () => {
         }
     })
 
+    
+    useEffect(() => {
+        if (user?.email) {
+            axiosInstance
+                .get(`/favorites/check/${meal._id}?email=${user.email}`)
+                .then(res => setFavorite(!!res.data.isFavorite))
+                .catch(err => console.error(err));
+        }
+    }, [meal._id, user?.email, axiosInstance]);
 
     // Fetching reviews
 
@@ -39,7 +49,7 @@ const MealDetails = () => {
         queryKey: ['reviews', mealId],
         queryFn: async () => {
             const res = await axiosSecure.get(`/reviews/${mealId}`)
-            console.log(res.data)
+
             return res.data
         }
     })
@@ -53,7 +63,7 @@ const MealDetails = () => {
 
     const handleReviewSubmit = (data) => {
 
-        console.log(data)
+        // console.log(data)
         const reviewData = {
             mealId: mealId,
             reviewerName: user?.displayName,
@@ -78,8 +88,52 @@ const MealDetails = () => {
 
 
 
+    // Add to Favourite section
+
+    const handleAddFavorite = (meal) => {
+        setFavorite(!favorite)
 
 
+        console.log(meal)
+        const favoriteData = {
+            userEmail: user?.email,
+            mealId: meal._id,
+            mealName: meal.foodName,
+            chefId: meal.chefId,
+            chefName: meal.chefName,
+            price: meal.price,
+        };
+
+
+        axiosInstance.post('/favorites', favoriteData)
+
+            .then(res => {
+                if (res.data.insertedId) {
+                    chefToast.success('Added to Favorites!')
+                }
+            })
+            .catch(error => {
+                chefToast.error("Failed to add to Favorite");
+            });
+
+
+    }
+
+
+    const handleDeleteFavorite = (meal) => {
+
+        axiosInstance.delete(`/favorites/${meal._id}?email=${user.email}`)
+            .then(data => {
+                if (data.data.deletedCount) {
+                    setFavorite(!favorite)
+                    chefToast.success('Removed from Favorites!')
+                }
+            })
+            .catch(error => {
+                console.log(error)
+                chefToast.error("Failed to remove from favorites");
+            })
+    }
 
 
 
@@ -99,7 +153,13 @@ const MealDetails = () => {
 
                 {/* Details */}
                 <div className="flex flex-col justify-between w-full md:w-1/2">
-                    <h1 className="text-3xl md:text-4xl font-black text-accent">{meal.foodName}</h1>
+                    <div className='flex justify-between'>
+                        <h1 className="text-3xl md:text-4xl font-black text-accent">{meal.foodName}</h1>
+                        {
+                            favorite ? <FaStar className='w-5 h-5 border-accent text-accent'></FaStar> : <FaRegStar className='w-5 h-5 border-accent text-accent'></FaRegStar>
+                        }
+                    </div>
+
                     <p className="text-gray-600 mt-2">{meal.ingredients?.join(', ')}</p>
 
                     <div className="mt-4">
@@ -111,7 +171,17 @@ const MealDetails = () => {
                         <p className="text-lg font-medium"><span className='font-bold'>Chef Experience: </span> {meal.chefExperience}</p>
                     </div>
 
-                    <Link to={`/order/${meal._id}`}><button className="btn btn-primary text-white bg-accent border-accent mt-6 w-full md:w-auto rounded-xl">Order Now</button></Link>
+                    <div className='flex gap-3'>
+                        <Link to={`/order/${meal._id}`}><button className="btn btn-primary button mt-6 w-full md:w-auto rounded-xl">Order Now</button></Link>
+                        {
+                            favorite ?
+                                <button onClick={() => handleDeleteFavorite(meal)} className="btn text-base-100 bg-accent border-accent mt-6 w-full md:w-auto rounded-xl">Added to Favourite</button>
+                                :
+                                <button onClick={() => handleAddFavorite(meal)} className="btn text-primary bg-base-100 hover:bg-primary hover:text-base-100 border-primary mt-6 w-full md:w-auto rounded-xl">Add to Favourite</button>
+
+                        }
+                    </div>
+
                 </div>
             </div>
 
