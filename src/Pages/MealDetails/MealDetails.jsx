@@ -91,7 +91,7 @@ const MealDetails = () => {
     // Add to Favourite section
 
     const handleAddFavorite = (meal) => {
-        setFavorite(!favorite)
+        setFavorite(true)
 
 
         console.log(meal)
@@ -125,7 +125,7 @@ const MealDetails = () => {
         axiosInstance.delete(`/favorites/${meal._id}?email=${user.email}`)
             .then(data => {
                 if (data.data.deletedCount) {
-                    setFavorite(!favorite)
+                    setFavorite(false)
                     chefToast.success('Removed from Favorites!')
                 }
             })
@@ -142,7 +142,7 @@ const MealDetails = () => {
     return (
         <div className="max-w-6xl mx-auto p-6 md:p-10">
             {/* Meal Details Section */}
-            <div className="flex flex-col md:flex-row gap-6 md:gap-10 bg-base-100 rounded-xl shadow-lg p-6 md:p-10 border-2 border-accent">
+            <div className={`flex flex-col md:flex-row gap-6 md:gap-10 bg-base-100 rounded-xl shadow-lg p-6 md:p-10 border-4 ${favorite ? 'border-accent' : 'border-secondary'}`}>
 
                 {/* Food Image */}
                 <img
