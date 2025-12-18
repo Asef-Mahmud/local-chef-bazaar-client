@@ -10,6 +10,18 @@ import MealDetails from "../Pages/MealDetails/MealDetails";
 import Order from "../Pages/Order/Order";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import MyProfile from "../Pages/Dashboard/MyProfile/MyProfile";
+import MyOrder from "../Pages/Dashboard/MyOrders/MyOrder";
+import MyReviews from "../Pages/Dashboard/MyReviews/MyReviews";
+import MyFav from "../Pages/Dashboard/MyFav/MyFav";
+import ChefRoute from "./ChefRoute";
+import ChefCreateMeal from "../Pages/Dashboard/ChefCreateMeal/ChefCreateMeal";
+import ChefMyMeals from "../Pages/Dashboard/ChefMyMeals/ChefMyMeals";
+import ChefOrderRequests from "../Pages/Dashboard/ChefOrderRequests/ChefOrderRequests";
+import AdminRoute from "./AdminRoute";
+import AdminManageUsers from "../Pages/Dashboard/AdminManageUsers/AdminManageUsers";
+import AdminManageRequests from "../Pages/Dashboard/AdminManageRequests/AdminManageRequests";
+import AdminStatistics from "../Pages/Dashboard/AdminStatistics/AdminStatistics";
 
 
 
@@ -64,7 +76,65 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Dashboard
-      }
+      },
+      {
+        path: 'my-profile',
+        Component: MyProfile
+      },
+      {
+        path: "my-orders",
+        Component: MyOrder
+      },
+      {
+        path: "my-reviews",
+        Component: MyReviews
+      },
+      {
+        path: "my-fav",
+        Component: MyFav
+      },
+
+
+      // Chef Only Routes
+      {
+        path: "create-meal",
+        element: <ChefRoute>
+          <ChefCreateMeal></ChefCreateMeal>
+        </ChefRoute>
+      },
+      {
+        path: "my-meals",
+        element: <ChefRoute>
+          <ChefMyMeals></ChefMyMeals>
+        </ChefRoute>
+      },
+      {
+        path: "order-requests",
+        element: <ChefRoute>
+          <ChefOrderRequests></ChefOrderRequests>
+        </ChefRoute>
+      },
+
+
+      // Admin Only Routes
+      {
+        path: "manage-users",
+        element: <AdminRoute>
+          <AdminManageUsers></AdminManageUsers>
+        </AdminRoute>
+      },
+      {
+        path: "manage-requests",
+        element: <AdminRoute>
+          <AdminManageRequests></AdminManageRequests>
+        </AdminRoute>
+      },
+      {
+        path: "statistics",
+        element: <AdminRoute>
+          <AdminStatistics></AdminStatistics>
+        </AdminRoute>
+      },
     ]
   }
 ]);

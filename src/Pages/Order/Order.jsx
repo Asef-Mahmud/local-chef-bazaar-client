@@ -44,6 +44,7 @@ const Order = () => {
             mealName: meal.foodName,
             price: Number(meal.price),
             quantity: Number(data.quantity),
+            chefName: meal.chefName,
             chefId: meal.chefId,
             userEmail: user.email,
             userAddress: data.userAddress,

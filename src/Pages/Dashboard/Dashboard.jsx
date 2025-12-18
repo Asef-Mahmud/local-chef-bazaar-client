@@ -1,10 +1,9 @@
 import React from 'react';
+import MyProfile from './MyProfile/MyProfile';
 
 const Dashboard = () => {
     return (
-        <div>
-            THIS IS THE DASHBOARD MAN!!!!
-        </div>
+        <MyProfile></MyProfile>
     );
 };
 

@@ -1,12 +1,13 @@
 import React from 'react';
 import useAuth from '../hooks/useAuth';
 import useRole from '../hooks/useRole';
-import Forbidden from '../Pages/Forbidden/Forbidden';
 import Loader from '../Loader/Loader';
+import Forbidden from '../Pages/Forbidden/Forbidden';
 
 
 
-const AdminRoute = ({children}) => {
+
+const ChefRoute = ({children}) => {
     const {loading} = useAuth()
     const {role, roleLoading} = useRole()
 
@@ -23,4 +24,4 @@ const AdminRoute = ({children}) => {
     return children
 };
 
-export default AdminRoute;
+export default ChefRoute;
