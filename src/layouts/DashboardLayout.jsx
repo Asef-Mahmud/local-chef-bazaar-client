@@ -4,6 +4,7 @@ import logo from '../assets/logo.jpg'
 import { FaBowlFood, FaBowlRice, FaChartArea, FaCircleExclamation, FaComment, FaComments, FaExclamation, FaHeart, FaHouse, FaHouseChimneyUser, FaHouseUser, FaRegCircleQuestion, FaRegComment, FaRegStar, FaUser, FaUserCheck, FaUsers, FaUserShield } from 'react-icons/fa6';
 import useRole from '../hooks/useRole';
 import Footer from '../Pages/Shared/Footer/Footer';
+import { Toaster } from 'react-hot-toast';
 
 const DashboardLayout = () => {
 
@@ -26,7 +27,7 @@ const DashboardLayout = () => {
 
                     {/* Page content here */}
                     <Outlet></Outlet>
-
+                    <Toaster position="top-center" reverseOrder={false}/>
                 </div>
 
 
