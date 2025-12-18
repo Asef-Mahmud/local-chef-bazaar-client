@@ -65,7 +65,9 @@ const MealDetails = () => {
 
         // console.log(data)
         const reviewData = {
+            userEmail: user.email,
             mealId: mealId,
+            mealName: meal.foodName,
             reviewerName: user?.displayName,
             reviewerImage: user?.photoURL,
             rating: data.rating,

@@ -28,13 +28,12 @@ const MyProfile = () => {
             requestType: roleType, 
         };
 
-        axiosSecure
-            .post('/role-requests', requestData)
+        axiosSecure.post('/role-requests', requestData)
             .then(res => {
                 if (res.data.insertedId) {
                     console.log(res.data)
                     chefToast.success(
-                        "Success",
+                        "Success!",
                         `${roleType === "chef" ? "Chef" : "Admin"} request sent successfully!`,
                         "success"
                     );
