@@ -54,7 +54,7 @@ const DailyMeals = () => {
                                 By <span className="font-medium text-gray-800">{meal.chefName}</span>
                             </p>
                             <div className="text-xl font-bold text-[#C9A86A]">৳{meal.price}</div>
-                            <p className="text-sm text-gray-500">{meal.deliveryArea}</p>
+                            <p className="text-sm text-gray-500"><span className='font-semibold'>Delivery Area:</span> {meal.deliveryArea?.join(', ')}</p>
                         </div>
                     </div>
                 ))}

@@ -23,6 +23,8 @@ const Meals = () => {
         },
     });
 
+    console.log(meals[0])
+
     if (isLoading) {
         return <Loader></Loader>
     }

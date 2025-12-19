@@ -15,7 +15,7 @@ const ChefCreateMeal = () => {
     const axiosSecure = useAxiosSecure()
 
 
-    const { data: userInfo = [], isLoading } = useQuery({
+    const { data: userInfo = [] } = useQuery({
         queryKey: ['users', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/${user.email}`)
@@ -39,8 +39,8 @@ const ChefCreateMeal = () => {
         const imageAPIurl = `https://api.imgbb.com/1/upload?expiration=600&key=${import.meta.env.VITE_image_host_key}`
         axiosInstance.post(imageAPIurl, formData)
             .then(response => {
-                // console.log('after image upload:', response.data.data.url)
-                const photoURL = response.data.data.url
+                console.log('after image upload:', response.data.data)
+                const photoURL = response.data.data.thumb.url
 
 
                 // update in meal collection
@@ -61,7 +61,7 @@ const ChefCreateMeal = () => {
                 axiosSecure.post('/meal', mealInfo)
                     .then(res => {
                         if (res.data.insertedId) {
-                            chefToast.success('Meal Added Successful!')
+                            chefToast.success('Meal Added Successfully!')
                         }
                     })
                     .catch(error => {
@@ -81,6 +81,7 @@ const ChefCreateMeal = () => {
         reset()
 
     };
+
 
 
     return (

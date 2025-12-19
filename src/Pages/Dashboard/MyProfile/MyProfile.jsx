@@ -10,7 +10,7 @@ const MyProfile = () => {
     const axiosSecure = useAxiosSecure()
 
     const { user } = useAuth()
-    console.log(user)
+    // console.log(user)
 
     const { data: profile = {}, isLoading } = useQuery({
         queryKey: ['profile', user?.email],
@@ -48,7 +48,7 @@ const MyProfile = () => {
         return <Loader></Loader>
     }
 
-    console.log(profile)
+    // console.log(profile)
 
     return (
         <div className="max-w-4xl md:mx-auto mt-5 border border-accent bg-base-100 mx-3 rounded-2xl shadow-lg hover:shadow-xl transition p-6 md:p-10">

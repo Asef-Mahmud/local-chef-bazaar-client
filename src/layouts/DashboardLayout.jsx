@@ -104,7 +104,7 @@ const DashboardLayout = () => {
                             {/* Chef Dashboard Links */}
 
                             {
-                                // role === "chef" &&
+                                role === "chef" &&
                                 <>
                                     {/* Create Meal */}
                                     <li>
