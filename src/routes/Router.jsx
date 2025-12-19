@@ -98,21 +98,21 @@ const router = createBrowserRouter([
       // Chef Only Routes
       {
         path: "create-meal",
-        element: <ChefRoute>
+        element: 
           <ChefCreateMeal></ChefCreateMeal>
-        </ChefRoute>
+
       },
       {
         path: "my-meals",
-        element: <ChefRoute>
+        element: 
           <ChefMyMeals></ChefMyMeals>
-        </ChefRoute>
+        
       },
       {
         path: "order-requests",
-        element: <ChefRoute>
+        element: 
           <ChefOrderRequests></ChefOrderRequests>
-        </ChefRoute>
+        
       },
 
 

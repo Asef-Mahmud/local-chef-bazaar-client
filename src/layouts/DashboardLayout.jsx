@@ -5,10 +5,15 @@ import { FaBowlFood, FaBowlRice, FaChartArea, FaCircleExclamation, FaComment, Fa
 import useRole from '../hooks/useRole';
 import Footer from '../Pages/Shared/Footer/Footer';
 import { Toaster } from 'react-hot-toast';
+import Loader from '../Loader/Loader';
 
 const DashboardLayout = () => {
 
-    const { role } = useRole()
+    const { role, roleLoading } = useRole()
+
+    if(roleLoading){
+        return <Loader></Loader>
+    }
 
     return (
         <div>
@@ -99,7 +104,7 @@ const DashboardLayout = () => {
                             {/* Chef Dashboard Links */}
 
                             {
-                                role === "chef" &&
+                                // role === "chef" &&
                                 <>
                                     {/* Create Meal */}
                                     <li>
@@ -138,7 +143,7 @@ const DashboardLayout = () => {
                             {/* Admin Dashboard Links */}
 
                             {
-                                role === "admin" &&
+                                // role === "admin" &&
 
                                 <>
                                     {/* Manage Users*/}

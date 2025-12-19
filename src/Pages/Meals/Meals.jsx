@@ -88,7 +88,7 @@ const Meals = () => {
                             <p className="text-gray-600 text-sm"><span className='font-bold'>By: </span>{meal.chefName} ({meal.chefId})</p>
                             <p className="text-accent font-bold text-lg"><span className='font-bold'>৳</span>{meal.price}</p>
                             <p className="text-gray-500 text-sm"><span className='font-bold'>Rating:</span> {meal.rating}/5</p>
-                            <p className="text-gray-500 text-sm"><span className='font-bold'>Delivery Area:</span> {meal.deliveryArea}</p>
+                            <p className="text-gray-500 text-sm"><span className='font-bold'>Delivery Area:</span> {meal.deliveryArea?.join(', ')}</p>
 
 
                             {/* View Details Button */}

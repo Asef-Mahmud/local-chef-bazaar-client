@@ -168,7 +168,7 @@ const MealDetails = () => {
                         <p className="text-lg font-medium"><span className='font-bold'>Chef: </span> {meal.chefName} (ID: {meal.chefId})</p>
                         <p className="text-lg font-medium"><span className='font-bold'>Price: ৳</span> {meal.price}</p>
                         <p className="text-lg font-medium"><span className='font-bold'>Rating: </span> {meal.rating}/5</p>
-                        <p className="text-lg font-medium"><span className='font-bold'>Delivery Area: </span> {meal.deliveryArea}</p>
+                        <p className="text-lg font-medium"><span className='font-bold'>Delivery Area: </span> {meal.deliveryArea?.join(', ')}</p>
                         <p className="text-lg font-medium"><span className='font-bold'>Estimated Delivery: </span> {meal.estimatedDeliveryTime}</p>
                         <p className="text-lg font-medium"><span className='font-bold'>Chef Experience: </span> {meal.chefExperience}</p>
                     </div>
