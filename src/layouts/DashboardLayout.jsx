@@ -143,7 +143,7 @@ const DashboardLayout = () => {
                             {/* Admin Dashboard Links */}
 
                             {
-                                // role === "admin" &&
+                                role === "admin" &&
 
                                 <>
                                     {/* Manage Users*/}

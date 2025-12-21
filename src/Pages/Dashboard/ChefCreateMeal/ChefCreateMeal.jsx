@@ -2,7 +2,6 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
 import { chefToast } from '../../../utils/chefToast';
-import axios from 'axios';
 import useAxios from '../../../hooks/useAxios';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
@@ -55,7 +54,8 @@ const ChefCreateMeal = () => {
                     estimatedDeliveryTime: data.estimatedDeliveryTime,
                     chefExperience: data.chefExperience,
                     chefId: userInfo.chefId,
-                    userEmail: user.email
+                    userEmail: user.email,
+                    status: userInfo.status
                 };
 
                 axiosSecure.post('/meal', mealInfo)

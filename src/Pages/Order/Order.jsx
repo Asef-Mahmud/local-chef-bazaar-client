@@ -28,6 +28,15 @@ const Order = () => {
         }
     })
 
+    const { data: userInfo = [], isLoading: userLoading } = useQuery({
+        queryKey: ['users', user?.email],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/users/${user.email}`)
+            console.log(userInfo)
+            return res.data
+        }
+    })
+
 
     const quantity = useWatch({
         control,
@@ -50,6 +59,7 @@ const Order = () => {
             userAddress: data.userAddress,
             orderStatus: "pending",
             paymentStatus: "pending",
+            status: userInfo.status
         };
 
         chefAlert({
@@ -86,9 +96,10 @@ const Order = () => {
     };
 
 
-    if (isLoading) {
+
+    if (isLoading || userLoading) {
         return <Loader></Loader>
-    };
+    }
 
     return (
         <div className="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-6">

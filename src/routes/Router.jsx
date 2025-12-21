@@ -22,6 +22,7 @@ import AdminRoute from "./AdminRoute";
 import AdminManageUsers from "../Pages/Dashboard/AdminManageUsers/AdminManageUsers";
 import AdminManageRequests from "../Pages/Dashboard/AdminManageRequests/AdminManageRequests";
 import AdminStatistics from "../Pages/Dashboard/AdminStatistics/AdminStatistics";
+import Payment from "../Pages/Dashboard/Payment/Payment";
 
 
 
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: "my-orders",
         Component: MyOrder
+      },
+      {
+        path: "payment/:orderId",
+        Component: Payment
       },
       {
         path: "my-reviews",

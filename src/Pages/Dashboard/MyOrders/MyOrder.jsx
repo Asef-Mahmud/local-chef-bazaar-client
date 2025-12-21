@@ -3,6 +3,7 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
 import Loader from '../../../Loader/Loader';
+import { Link } from 'react-router';
 
 const MyOrder = () => {
 
@@ -54,9 +55,12 @@ const MyOrder = () => {
 
                     {/* Pay Button */}
                     {order.paymentStatus === 'pending' && order.orderStatus === 'accepted' && (
-                        <button className="mt-4 w-full py-2 rounded-lg bg-[#C9A86A] text-black font-semibold hover:brightness-95 transition">
-                            Pay Now
-                        </button>
+                        <Link to={`/dashboard/payment/${order._id}`}>
+                            <button className="mt-4 w-full py-2 rounded-l hover:cursor-pointer bg-[#C9A86A] text-black font-semibold hover:brightness-95 transition">
+                                Pay Now
+                            </button>
+                        </Link>
+
                     )}
                 </div>
             ))}
