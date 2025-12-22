@@ -44,7 +44,7 @@ const Order = () => {
     });
 
     const totalPrice = Number(meal.price) * Number(quantity);
-    console.log(totalPrice)
+    // console.log(totalPrice)
 
     const handleOrder = (data) => {
 
@@ -52,6 +52,7 @@ const Order = () => {
             foodId: meal._id,
             mealName: meal.foodName,
             price: Number(meal.price),
+            totalPrice: Number(totalPrice),
             quantity: Number(data.quantity),
             chefName: meal.chefName,
             chefId: meal.chefId,

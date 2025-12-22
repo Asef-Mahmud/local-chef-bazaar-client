@@ -23,6 +23,8 @@ import AdminManageUsers from "../Pages/Dashboard/AdminManageUsers/AdminManageUse
 import AdminManageRequests from "../Pages/Dashboard/AdminManageRequests/AdminManageRequests";
 import AdminStatistics from "../Pages/Dashboard/AdminStatistics/AdminStatistics";
 import Payment from "../Pages/Dashboard/Payment/Payment";
+import PaymentSuccess from "../Pages/Dashboard/Payment/PaymentSuccess";
+import PaymentCancelled from "../Pages/Dashboard/Payment/PaymentCancelled";
 
 
 
@@ -89,6 +91,14 @@ const router = createBrowserRouter([
       {
         path: "payment/:orderId",
         Component: Payment
+      },
+      {
+        path: "order/payment-success",
+        Component: PaymentSuccess
+      },
+      {
+        path: "order/payment-cancelled",
+        Component: PaymentCancelled
       },
       {
         path: "my-reviews",

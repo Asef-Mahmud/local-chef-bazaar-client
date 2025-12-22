@@ -19,6 +19,17 @@ const MyOrder = () => {
         }
     })
 
+    const handlePayment = async (order) => {
+        const paymentInfo = {
+            cost: order?.totalPrice || order.price,
+            orderId: order._id,
+            userEmail: order.userEmail,
+            mealName: order.mealName
+        }
+        const res = await axiosSecure.post('/payment-checkout-session', paymentInfo);
+        window.location.assign(res.data.url)
+    }
+
     if (isLoading) {
         return <Loader></Loader>
     }
@@ -55,11 +66,9 @@ const MyOrder = () => {
 
                     {/* Pay Button */}
                     {order.paymentStatus === 'pending' && order.orderStatus === 'accepted' && (
-                        <Link to={`/dashboard/payment/${order._id}`}>
-                            <button className="mt-4 w-full py-2 rounded-l hover:cursor-pointer bg-[#C9A86A] text-black font-semibold hover:brightness-95 transition">
+                            <button onClick={() => handlePayment(order)} className="mt-4 w-full py-2 rounded-l hover:cursor-pointer bg-[#C9A86A] text-black font-semibold hover:brightness-95 transition">
                                 Pay Now
                             </button>
-                        </Link>
 
                     )}
                 </div>
