@@ -4,9 +4,13 @@ import Banner from '../Banner/Banner';
 import DailyMeals from '../DailyMeals/DailyMeals';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import Reviews from '../Reviews/Reviews';
+import useTitle from '../../../hooks/useTitle';
 
 
 const Home = () => {
+
+    useTitle("Home")
+
     return (
         <div className='bg-secondary'>
             {/* Banner */}

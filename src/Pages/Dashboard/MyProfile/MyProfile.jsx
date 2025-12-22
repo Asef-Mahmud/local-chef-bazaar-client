@@ -4,8 +4,11 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useAuth from '../../../hooks/useAuth';
 import Loader from '../../../Loader/Loader';
 import { chefToast } from '../../../utils/chefToast';
+import useTitle from '../../../hooks/useTitle';
 
 const MyProfile = () => {
+
+    useTitle("Profile")
 
     const axiosSecure = useAxiosSecure()
 

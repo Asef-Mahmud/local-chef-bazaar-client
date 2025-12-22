@@ -6,8 +6,11 @@ import useRole from '../hooks/useRole';
 import Footer from '../Pages/Shared/Footer/Footer';
 import { Toaster } from 'react-hot-toast';
 import Loader from '../Loader/Loader';
+import useTitle from '../hooks/useTitle';
 
 const DashboardLayout = () => {
+
+    useTitle("Dashboard")
 
     const { role, roleLoading } = useRole()
 

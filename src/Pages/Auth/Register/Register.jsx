@@ -7,9 +7,11 @@ import { chefToast } from '../../../utils/chefToast';
 import axios from 'axios';
 import Loader from '../../../Loader/Loader';
 import useAxios from '../../../hooks/useAxios';
+import useTitle from '../../../hooks/useTitle';
 
 const Register = () => {
 
+    useTitle("Register Page");
     //axios
     const axiosInstance = useAxios()
 

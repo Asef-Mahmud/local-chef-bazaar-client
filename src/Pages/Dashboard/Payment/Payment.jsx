@@ -3,8 +3,12 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '../../../Loader/Loader';
 import { useParams } from 'react-router';
+import useTitle from '../../../hooks/useTitle';
 
 const Payment = () => {
+
+    useTitle("Payment")
+
     const axiosSecure = useAxiosSecure();
     const {orderId}= useParams()
     

@@ -4,9 +4,11 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { chefAlert } from '../../../utils/chefAlert';
 import { chefToast } from '../../../utils/chefToast';
+import useTitle from '../../../hooks/useTitle';
 
 const AdminManageRequests = () => {
 
+    useTitle("Manage Requests - Admin")
     const axiosSecure = useAxiosSecure()
 
     const { data: roles = [], isLoading, refetch } = useQuery({

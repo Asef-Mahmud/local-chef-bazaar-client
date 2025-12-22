@@ -4,27 +4,42 @@ import { useQuery } from '@tanstack/react-query';
 import Loader from '../../Loader/Loader';
 import { chefToast } from '../../utils/chefToast';
 import { Link } from 'react-router';
+import useTitle from '../../hooks/useTitle';
 
 const Meals = () => {
+
+    useTitle('Daily Meals')
 
     const axiosInstance = useAxios()
 
     const [order, setOrder] = useState('')
 
+    const [totalPage, setTotalPage] = useState(0)
+    const [totalMeals, setTotalMeals] = useState(0)
+    const [currentPage, setCurrentPage] = useState(0)
+    const limit = 10
 
 
-    const { data: meals = [], isLoading } = useQuery({
+
+    const { data: meals = {}, isLoading } = useQuery({
         queryKey: ['meals', order],
         queryFn: async () => {
-            const res = await axiosInstance.get(`/meals?order=${order}`);
-            // console.log(res.data)
+            const res = await axiosInstance.get(`/meals?limit=${limit}&skip=${currentPage * limit}&order=${order}`);
+            setTotalMeals(meals.total)
+            const page = Math.ceil((meals.total) / limit)
+            setTotalPage(page)
+            console.log(page, (meals.total), limit)
             return res.data;
 
         },
     });
 
 
-    if (isLoading) {
+    const handleClick = (i) => {
+        setCurrentPage(i)
+    }
+
+    if (isLoading || !meals) {
         return <Loader></Loader>
     }
 
@@ -47,29 +62,38 @@ const Meals = () => {
 
 
             {/* Sorting Button */}
-            <div className="dropdown dropdown-end flex justify-center lg:justify-end pb-5">
-                <div tabIndex={0} role="button" className="btn btn-sm btn-primary text-base-100 rounded-xl px-3">
-                    Sort by Price
+            <div className='flex justify-between'>
+                <div>
+                    <h2 className='font-bold border p-1 px-2 border-primary rounded-xl'>
+                        Total {meals.total} Meals
+                    </h2>
                 </div>
 
-                <ul tabIndex={-1} className="dropdown-content menu bg-base-100 rounded-xl z-20 w-50 p-2 shadow-md">
-                    <li>
-                        <button onClick={() => handleSort('asc')}>
-                            Price ↑ Ascending
-                        </button>
-                    </li>
-                    <li>
-                        <button onClick={() => handleSort('desc')}>
-                            Price ↓ Descending
-                        </button>
-                    </li>
-                </ul>
+                <div className="dropdown dropdown-end flex justify-center lg:justify-end pb-5">
+                    <div tabIndex={0} role="button" className="btn btn-sm btn-primary text-base-100 rounded-xl px-3">
+                        Sort by Price
+                    </div>
+
+                    <ul tabIndex={-1} className="dropdown-content menu bg-base-100 rounded-xl z-20 w-50 p-2 shadow-md">
+                        <li>
+                            <button onClick={() => handleSort('asc')}>
+                                Price ↑ Ascending
+                            </button>
+                        </li>
+                        <li>
+                            <button onClick={() => handleSort('desc')}>
+                                Price ↓ Descending
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
 
 
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {meals.map((meal) => (
+                {meals.result.map((meal) => (
                     <div
                         key={meal._id}
                         className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300"
@@ -98,6 +122,16 @@ const Meals = () => {
                     </div>
                 ))}
             </div>
+
+            {/* <div className='flex justify-center flex-wrap gap-3 py-10'>
+                {
+                    [...Array(totalPage).keys()].map((i) => {
+                        
+                        <button onClick={()=> handleClick(i)} className='btn'>{i}</button>
+                        console.log(i)
+                    })
+                }
+            </div> */}
         </div>
     );
 };

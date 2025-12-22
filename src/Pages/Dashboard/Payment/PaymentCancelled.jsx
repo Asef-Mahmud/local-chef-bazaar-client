@@ -2,8 +2,12 @@ import React from 'react';
 import { FaCircle } from 'react-icons/fa6';
 import { MdCancel } from 'react-icons/md';
 import { Link } from 'react-router';
+import useTitle from '../../../hooks/useTitle';
 
 const PaymentCancelled = () => {
+
+    useTitle("Payment Cancel")
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-red-100 to-red-200 px-4">
             <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">

@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { FaCircleCheck } from 'react-icons/fa6';
 import { Link, useSearchParams } from 'react-router';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import useTitle from '../../../hooks/useTitle';
 
 const PaymentSuccess = () => {
+
+    useTitle("Payment Success")
 
     const [searchParams] = useSearchParams();
     const sessionId = searchParams.get('session_id')

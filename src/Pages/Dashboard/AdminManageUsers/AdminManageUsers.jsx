@@ -4,8 +4,11 @@ import { useQuery } from '@tanstack/react-query';
 import Loader from '../../../Loader/Loader';
 import { chefAlert } from '../../../utils/chefAlert';
 import { chefToast } from '../../../utils/chefToast';
+import useTitle from '../../../hooks/useTitle';
 
 const AdminManageUsers = () => {
+
+    useTitle("Manage Users - Admin")
 
     const axiosSecure = useAxiosSecure()
 

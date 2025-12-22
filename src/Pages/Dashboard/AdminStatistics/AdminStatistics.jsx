@@ -2,11 +2,17 @@ import React from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Loader from '../../../Loader/Loader';
 import { useQuery } from '@tanstack/react-query';
+import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import useTitle from '../../../hooks/useTitle';
 
 const AdminStatistics = () => {
+
+    useTitle("Admin Statistics");
+
+
     const axiosSecure = useAxiosSecure()
 
-    const { data: userStats = [], isLoading: userLoading } = useQuery({
+    const { data: userStats = 0, isLoading: userLoading } = useQuery({
         queryKey: ['user-totalUsers-stats'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/totalUsers/stats`)
@@ -16,7 +22,7 @@ const AdminStatistics = () => {
     })
 
 
-    const { data: paymentStats = [], isLoading: paymentLoading } = useQuery({
+    const { data: paymentStats = 0, isLoading: paymentLoading } = useQuery({
         queryKey: ['payments-totalPayments-stats'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/payments/totalPayments/stats`)
@@ -35,6 +41,22 @@ const AdminStatistics = () => {
             return res.data
         },
     })
+
+    // Recharts:
+
+    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
+    const pieData = orderStats.map(stat => ({
+        name: stat._id.toUpperCase(),
+        value: stat.count
+    }))
+
+    const paymentChartData = [
+        {
+            name: 'Payments',
+            value: paymentStats
+        }
+    ]
+
 
     if (statsLoading || paymentLoading || userLoading) {
         return <Loader></Loader>
@@ -73,7 +95,65 @@ const AdminStatistics = () => {
                 ))}
 
             </div>
+
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10">
+
+                {/* Pie chart */}
+                <div className="bg-base-100 shadow p-6 rounded-lg">
+                    <h2 className="text-xl font-bold mb-4 text-center">
+                        Orders by Status
+                    </h2>
+
+                    <div className="w-full h-[300px]">
+                        <ResponsiveContainer>
+                            <PieChart>
+                                <Pie
+                                    data={pieData}
+                                    dataKey="value"
+                                    nameKey="name"
+                                    cx="50%"
+                                    cy="50%"
+                                    innerRadius={60}
+                                    outerRadius={90}
+                                    label
+                                >
+                                    {pieData.map((entry, index) => (
+                                        <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                                    ))}
+                                </Pie>
+                                <Tooltip />
+                            </PieChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
+
+                                    {/* BAr Chart */}
+                <div className="bg-base-100 shadow p-6 rounded-lg">
+                    <h2 className="text-xl font-bold mb-4 text-center">
+                        Payments Overview
+                    </h2>
+
+                    <div className="w-full h-[300px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <BarChart
+                                data={paymentChartData}
+                                margin={{ top: 20, right: 20, left: 0, bottom: 5 }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                <Bar dataKey="value" fill="#6366f1" radius={[6, 6, 0, 0]} />
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+
     );
 };
 

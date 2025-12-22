@@ -8,8 +8,11 @@ import { chefAlert } from '../../../utils/chefAlert';
 import { useForm } from 'react-hook-form';
 import { MdCancel } from 'react-icons/md';
 import useAxios from '../../../hooks/useAxios';
+import useTitle from '../../../hooks/useTitle';
 
 const ChefMyMeals = () => {
+
+    useTitle('Meals Collection - Chef')
 
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()

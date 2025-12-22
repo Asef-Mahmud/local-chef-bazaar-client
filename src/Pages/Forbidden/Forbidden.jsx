@@ -1,9 +1,13 @@
 import React from 'react';
 import { MdBlock } from 'react-icons/md';
 import { Link } from 'react-router';
+import useTitle from '../../hooks/useTitle';
 
 
 const Forbidden = () => {
+
+    useTitle("Forbidden")
+
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-base-100 text-center px-5">
             

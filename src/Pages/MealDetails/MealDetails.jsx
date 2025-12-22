@@ -6,15 +6,17 @@ import Loader from '../../Loader/Loader';
 import { useForm } from 'react-hook-form';
 import { chefToast } from '../../utils/chefToast';
 import useAuth from '../../hooks/useAuth';
-import useAxios from '../../hooks/useAxios';
 import { FaRegStar, FaStar } from 'react-icons/fa6';
+import useTitle from '../../hooks/useTitle';
 
 const MealDetails = () => {
+
+    useTitle("Meal Details")
 
     const { id: mealId } = useParams()
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
-    const axiosInstance = useAxios()
+
 
 
     const [favorite, setFavorite] = useState(false)
@@ -33,15 +35,15 @@ const MealDetails = () => {
         }
     })
 
-    
+
     useEffect(() => {
         if (user?.email) {
-            axiosInstance
+            axiosSecure
                 .get(`/favorites/check/${meal._id}?email=${user.email}`)
                 .then(res => setFavorite(!!res.data.isFavorite))
                 .catch(err => console.error(err));
         }
-    }, [meal._id, user?.email, axiosInstance]);
+    }, [meal._id, user?.email, axiosSecure]);
 
     // Fetching reviews
 
@@ -74,7 +76,7 @@ const MealDetails = () => {
             comment: data.comment,
         };
 
-        axiosInstance.post('/review', reviewData)
+        axiosSecure.post('/review', reviewData)
             .then(res => {
                 if (res.data.insertedId) {
                     chefToast.success('Review submitted successfully!')
@@ -107,7 +109,7 @@ const MealDetails = () => {
         };
 
 
-        axiosInstance.post('/favorites', favoriteData)
+        axiosSecure.post('/favorites', favoriteData)
 
             .then(res => {
                 if (res.data.insertedId) {
@@ -124,7 +126,7 @@ const MealDetails = () => {
 
     const handleDeleteFavorite = (meal) => {
 
-        axiosInstance.delete(`/favorites/${meal._id}?email=${user.email}`)
+        axiosSecure.delete(`/favorites/${meal._id}?email=${user.email}`)
             .then(data => {
                 if (data.data.deletedCount) {
                     setFavorite(false)
@@ -192,19 +194,46 @@ const MealDetails = () => {
 
             {/* Reviews Section */}
             <div className="mt-10">
-                <h2 className="text-2xl font-bold text-primary mb-4">Customer Reviews</h2>
-                <div className="space-y-4">
-                    {reviews?.map(review => (
-                        <div key={review._id} className="flex items-start gap-4 bg-base-200 p-4 rounded-lg shadow-sm">
-                            <img src={review.reviewerImage} alt={review.reviewerName} className="w-12 h-12 rounded-full object-cover" />
-                            <div className="flex-1">
-                                <p className="font-semibold">{review.reviewerName} <span className='text-yellow-500'>{"★ ".repeat(review.rating)}</span></p>
-                                <p className="text-gray-700">{review.comment}</p>
-                                <p className="text-xs text-gray-500 mt-1">{new Date(review.timestamp).toLocaleString()}</p>
-                            </div>
+                {reviews.length === 0 ? (
+                    <p className="text-neutral-500 text-xl font-bold">No comments yet. Be the first!</p>
+                ) : (
+                    <>
+                        <h2 className="text-2xl font-bold text-primary mb-4">
+                            Customer Reviews
+                        </h2>
+
+                        <div className="space-y-4">
+                            {reviews.map(review => (
+                                <div
+                                    key={review._id}
+                                    className="flex items-start gap-4 bg-base-200 p-4 rounded-lg shadow-sm"
+                                >
+                                    <img
+                                        src={review.reviewerImage}
+                                        alt={review.reviewerName}
+                                        className="w-12 h-12 rounded-full object-cover"
+                                    />
+
+                                    <div className="flex-1">
+                                        <p className="font-semibold">
+                                            {review.reviewerName}
+                                            <span className="text-yellow-500 ml-2">
+                                                {"★".repeat(review.rating)}
+                                            </span>
+                                        </p>
+
+                                        <p className="text-gray-700">{review.comment}</p>
+
+                                        <p className="text-xs text-gray-500 mt-1">
+                                            {new Date(review.timestamp).toLocaleString()}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
+                    </>
+                )}
+
             </div>
 
 

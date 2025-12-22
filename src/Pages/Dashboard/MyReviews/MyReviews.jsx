@@ -7,8 +7,11 @@ import { useForm } from 'react-hook-form';
 import { MdCancel } from 'react-icons/md';
 import { chefToast } from '../../../utils/chefToast';
 import { chefAlert } from '../../../utils/chefAlert';
+import useTitle from '../../../hooks/useTitle';
 
 const MyReviews = () => {
+
+    useTitle("Reviews")
 
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()

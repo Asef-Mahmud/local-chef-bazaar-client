@@ -5,8 +5,11 @@ import { chefToast } from '../../../utils/chefToast';
 import useAxios from '../../../hooks/useAxios';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import useTitle from '../../../hooks/useTitle';
 
 const ChefCreateMeal = () => {
+
+    useTitle('Create Your Meal - Chef')
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { user } = useAuth()

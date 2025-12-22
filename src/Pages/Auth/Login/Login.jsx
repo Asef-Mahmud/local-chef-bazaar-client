@@ -5,9 +5,12 @@ import imgbg from '../../../assets/cook_bg.jpg'
 import useAuth from '../../../hooks/useAuth';
 import { chefToast } from '../../../utils/chefToast';
 import Loader from '../../../Loader/Loader';
+import useTitle from '../../../hooks/useTitle';
 
 
 const Login = () => {
+
+    useTitle("Login Page");
 
     const { signInUser, setUser, loading } = useAuth()
 

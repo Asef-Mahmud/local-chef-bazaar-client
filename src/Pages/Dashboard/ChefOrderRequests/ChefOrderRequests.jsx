@@ -5,8 +5,11 @@ import useAuth from '../../../hooks/useAuth';
 import Loader from '../../../Loader/Loader';
 import { chefToast } from '../../../utils/chefToast';
 import { chefAlert } from '../../../utils/chefAlert';
+import useTitle from '../../../hooks/useTitle';
 
 const ChefOrderRequests = () => {
+
+    useTitle("Orders - Chef")
 
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()

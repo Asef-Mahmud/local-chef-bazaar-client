@@ -6,8 +6,11 @@ import { chefToast } from '../../../utils/chefToast';
 import { chefAlert } from '../../../utils/chefAlert';
 import Loader from '../../../Loader/Loader';
 import toast from 'react-hot-toast';
+import useTitle from '../../../hooks/useTitle';
 
 const MyFav = () => {
+
+    useTitle("Favorites")
 
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()

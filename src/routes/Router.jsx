@@ -25,6 +25,7 @@ import AdminStatistics from "../Pages/Dashboard/AdminStatistics/AdminStatistics"
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import PaymentSuccess from "../Pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancelled from "../Pages/Dashboard/Payment/PaymentCancelled";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 
 
@@ -151,6 +152,10 @@ const router = createBrowserRouter([
         </AdminRoute>
       },
     ]
+  },
+  {
+    path: '/*',
+    Component: ErrorPage
   }
 ]);
 

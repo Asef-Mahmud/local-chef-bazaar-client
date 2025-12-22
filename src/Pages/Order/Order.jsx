@@ -8,8 +8,11 @@ import Loader from '../../Loader/Loader';
 import { chefToast } from '../../utils/chefToast';
 import Swal from 'sweetalert2';
 import { chefAlert } from '../../utils/chefAlert';
+import useTitle from '../../hooks/useTitle';
 
 const Order = () => {
+
+    useTitle("Order Form")
 
     const { id: mealId } = useParams()
     console.log(mealId)

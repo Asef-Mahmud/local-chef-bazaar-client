@@ -4,8 +4,11 @@ import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
 import Loader from '../../../Loader/Loader';
 import { Link } from 'react-router';
+import useTitle from '../../../hooks/useTitle';
 
 const MyOrder = () => {
+
+    useTitle("Orders")
 
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
