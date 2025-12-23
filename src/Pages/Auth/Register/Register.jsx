@@ -37,8 +37,13 @@ const Register = () => {
 
     const handleRegister = (data) => {
         console.log('after registration', data)
-        const photoImg = data.image[0]
+        const photoImg = data.image?.[0]
 
+
+        if (!photoImg) {
+            chefToast.error('Image not found');
+            return; 
+        }
 
         // Register User
         registerUser(data.email, data.password)
@@ -52,11 +57,11 @@ const Register = () => {
 
 
                 // Send the photo to store and get the URL
-                const imageAPIurl = `https://api.imgbb.com/1/upload?expiration=600&key=${import.meta.env.VITE_image_host_key}`
+                const imageAPIurl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`
                 axios.post(imageAPIurl, formData)
                     .then(response => {
-                        // console.log('after image upload:', response.data.data.url)
-                        const photoURL = response.data.data.url
+                        console.log('after image upload:', response.data.data.url)
+                        const photoURL = response.data.data.display_url
 
 
 
@@ -138,7 +143,7 @@ const Register = () => {
                         {/* Address Field */}
                         <label className="label text-secondary">Address</label>
                         <input type="text" {...register('address', { required: true })} className="input" placeholder="Your Address" />
-                        {errors.name?.type === 'required' && <p className='text-warning'>Address is required.</p>}
+                        {errors.address?.type === 'required' && <p className='text-warning'>Address is required.</p>}
 
 
                         {/* Password */}
@@ -168,7 +173,7 @@ const Register = () => {
                         <label className="label text-secondary">Your Photo</label>
 
                         <input type="file" {...register('image', { required: true })} className="file-input" placeholder="Your Image" />
-                        {errors.name?.type === 'required' && <p className='text-warning'>Image is required.</p>}
+                        {errors.image?.type === 'required' && <p className='text-warning'>Image is required.</p>}
 
 
                         <button className="btn hover:border-2 hover:border-secondary font-bold bg-primary border-0 rounded-xl text-base-100 mt-4 ">Register</button>

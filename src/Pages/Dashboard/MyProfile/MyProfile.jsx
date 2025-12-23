@@ -16,9 +16,11 @@ const MyProfile = () => {
     // console.log(user)
 
     const { data: profile = {}, isLoading } = useQuery({
-        queryKey: ['profile', user?.email],
+        queryKey: ['users', user?.email],
+        enabled: !!user?.email,
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/${user.email}`)
+            console.log('profile:', profile);
             return res.data
         },
 
@@ -28,7 +30,7 @@ const MyProfile = () => {
         const requestData = {
             userName: profile.userName,
             userEmail: profile.userEmail,
-            requestType: roleType, 
+            requestType: roleType,
         };
 
         axiosSecure.post('/role-requests', requestData)

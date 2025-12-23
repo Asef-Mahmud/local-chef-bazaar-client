@@ -14,32 +14,32 @@ const Meals = () => {
 
     const [order, setOrder] = useState('')
 
-    const [totalPage, setTotalPage] = useState(0)
-    const [totalMeals, setTotalMeals] = useState(0)
-    const [currentPage, setCurrentPage] = useState(0)
-    const limit = 10
+    const [page, setPage] = useState(1);
+
+    const limit = 6;
 
 
 
-    const { data: meals = {}, isLoading } = useQuery({
-        queryKey: ['meals', order],
+    const { data, isLoading } = useQuery({
+        queryKey: ['meals', page, order],
+        keepPreviousData: true,
         queryFn: async () => {
-            const res = await axiosInstance.get(`/meals?limit=${limit}&skip=${currentPage * limit}&order=${order}`);
-            setTotalMeals(meals.total)
-            const page = Math.ceil((meals.total) / limit)
-            setTotalPage(page)
-            console.log(page, (meals.total), limit)
-            return res.data;
+            const params = new URLSearchParams();
+            params.append('page', page);
+            params.append('limit', limit);
+            if (order) params.append('order', order);
 
+            const res = await axiosInstance.get(`/meals?${params.toString()}`);
+            return res.data;
         },
     });
 
+    const meals = data?.result || [];
+    const totalPages = data?.totalPages || 1;
+    console.log(meals)
 
-    const handleClick = (i) => {
-        setCurrentPage(i)
-    }
 
-    if (isLoading || !meals) {
+    if (isLoading) {
         return <Loader></Loader>
     }
 
@@ -65,7 +65,7 @@ const Meals = () => {
             <div className='flex justify-between'>
                 <div>
                     <h2 className='font-bold border p-1 px-2 border-primary rounded-xl'>
-                        Total {meals.total} Meals
+                        Total Meals Found: {data.total}
                     </h2>
                 </div>
 
@@ -93,7 +93,7 @@ const Meals = () => {
 
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {meals.result.map((meal) => (
+                {meals.map((meal) => (
                     <div
                         key={meal._id}
                         className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300"
@@ -123,15 +123,18 @@ const Meals = () => {
                 ))}
             </div>
 
-            {/* <div className='flex justify-center flex-wrap gap-3 py-10'>
-                {
-                    [...Array(totalPage).keys()].map((i) => {
-                        
-                        <button onClick={()=> handleClick(i)} className='btn'>{i}</button>
-                        console.log(i)
-                    })
-                }
-            </div> */}
+            <div className="flex gap-2 justify-center mt-10">
+                {[...Array(totalPages).keys()].map(i => (
+                    <button
+                        key={i}
+                        onClick={() => setPage(i + 1)}
+                        className={`btn btn-sm ${page === i + 1 ? 'btn-primary' : 'btn-outline'
+                            }`}
+                    >
+                        {i + 1}
+                    </button>
+                ))}
+            </div>
         </div>
     );
 };
